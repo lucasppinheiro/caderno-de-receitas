@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lucasppinheiro.github.io/caderno-de-receitas/sitemap.xml

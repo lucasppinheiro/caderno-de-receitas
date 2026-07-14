@@ -1,149 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Receitas brasileiras com busca inteligente, filtros combinados e modo de preparo passo a passo.">
-    <title>ReceitasBR | Sabores do Brasil</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/styles/main.css">
-</head>
-<body>
-    <a class="skip-link" href="#receitas-section">Pular para o conteúdo</a>
-
-    <div class="page-shell">
-        <header class="site-header" id="topo">
-            <div class="container site-header__inner">
-                <a href="#topo" class="brand" aria-label="Voltar ao topo do ReceitasBR">
-                    <span class="brand__eyebrow">Caderno de receitas</span>
-                    <span class="brand__title">ReceitasBR</span>
-                </a>
-
-                <form class="search-form" role="search" aria-label="Buscar receitas">
-                    <label class="sr-only" for="search-input">Buscar por nome, ingrediente ou categoria</label>
-                    <svg class="search-form__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M10.5 4a6.5 6.5 0 1 0 4.06 11.58l4.43 4.43 1.41-1.41-4.43-4.43A6.5 6.5 0 0 0 10.5 4Zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z" />
-                    </svg>
-                    <input type="search" id="search-input" class="search-form__input" placeholder="Buscar por nome, ingrediente ou categoria" autocomplete="off" inputmode="search">
-                    <button type="button" id="search-clear" class="search-form__clear" hidden>Limpar</button>
-                </form>
-            </div>
-        </header>
-
-        <section class="hero">
-            <div class="container hero__grid">
-                <div class="hero__content">
-                    <p class="hero__eyebrow">Sabores do Brasil, do café da tarde ao almoço de domingo</p>
-                    <h1>Receitas brasileiras com cara de mesa posta e preparo sem mistério.</h1>
-                    <p class="hero__lede">
-                        Explore pratos tradicionais, filtre por estilo ou região e abra cada receita com ingredientes, tempo de preparo e passo a passo organizado.
-                    </p>
-
-                    <div class="hero__stats" aria-label="Visão geral do catálogo">
-                        <div class="hero-stat">
-                            <strong id="hero-count">26</strong>
-                            <span>receitas no catálogo</span>
-                        </div>
-                        <div class="hero-stat">
-                            <strong id="hero-origins">7</strong>
-                            <span>origens brasileiras</span>
-                        </div>
-                        <div class="hero-stat">
-                            <strong>100%</strong>
-                            <span>acesso offline</span>
-                        </div>
-                    </div>
-                </div>
-
-                <aside class="hero__aside" aria-label="Destaques da coleção">
-                    <div class="hero-card">
-                        <span class="hero-card__kicker">Em destaque</span>
-                        <h2>Do fogão à sobremesa</h2>
-                        <p>Feijoada, moqueca, pão de queijo, pastel e outros clássicos em uma navegação mais rápida, legível e responsiva.</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section class="controls-section" aria-labelledby="controls-title">
-            <div class="container">
-                <div class="controls-surface">
-                    <div class="controls-surface__header">
-                        <div>
-                            <p class="section-label">Filtros combinados</p>
-                            <h2 id="controls-title">Encontre a receita certa para o momento</h2>
-                        </div>
-                        <button type="button" id="reset-filters" class="ghost-button">Limpar filtros</button>
-                    </div>
-
-                    <div class="categories-strip" id="categories-container" role="toolbar" aria-label="Filtrar por categoria"></div>
-
-                    <div class="filters-grid">
-                        <label class="field">
-                            <span class="field__label">Clima ou origem</span>
-                            <select id="tag-filter" class="field__control">
-                                <option value="all">Todas as tags e origens</option>
-                            </select>
-                        </label>
-
-                        <label class="field">
-                            <span class="field__label">Ordenar por</span>
-                            <select id="sort-select" class="field__control">
-                                <option value="alphabetical">A-Z</option>
-                                <option value="ingredients">Menos ingredientes</option>
-                                <option value="fastest">Mais rápidas</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <main id="receitas-section" class="recipes-section">
-            <div class="container">
-                <div class="results-bar">
-                    <p class="results-bar__info" id="results-info" role="status" aria-live="polite"></p>
-                    <div class="active-filters" id="active-filters" aria-live="polite"></div>
-                </div>
-
-                <div class="recipes-grid" id="recipes-grid" aria-live="polite"></div>
-
-                <section class="empty-state" id="empty-state" hidden aria-labelledby="empty-title">
-                    <span class="empty-state__eyebrow">Nada por aqui</span>
-                    <h2 id="empty-title">Nenhuma receita encontrou os filtros atuais.</h2>
-                    <p>Tente remover um filtro, buscar por outro ingrediente ou voltar para a coleção completa.</p>
-                    <button type="button" id="empty-reset" class="primary-button">Ver todas as receitas</button>
-                </section>
-            </div>
-        </main>
-
-        <div class="modal-overlay" id="modal-overlay" hidden>
-            <div class="recipe-modal" id="recipe-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
-                <button type="button" id="modal-close" class="recipe-modal__close" aria-label="Fechar receita">Fechar</button>
-                <div id="modal-body"></div>
-            </div>
-        </div>
-
-        <footer class="site-footer">
-            <div class="container site-footer__inner">
-                <p>ReceitasBR reúne receitas brasileiras em uma vitrine leve, acessível e fácil de explorar.</p>
-                <a href="#topo">Voltar ao topo</a>
-            </div>
-        </footer>
-    </div>
-
-    <noscript>
-        <div class="noscript-banner">Ative o JavaScript para usar a busca, os filtros e a visualização completa das receitas.</div>
-    </noscript>
-
-    <script src="src/data/receitas.js" defer></script>
-    <script src="src/scripts/utils.js" defer></script>
-    <script src="src/scripts/state.js" defer></script>
-    <script src="src/scripts/filters.js" defer></script>
-    <script src="src/scripts/render-grid.js" defer></script>
-    <script src="src/scripts/modal.js" defer></script>
-    <script src="src/scripts/main.js" defer></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' ws:; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#174b85" />
+    <meta
+      name="description"
+      content="Catálogo de receitas brasileiras com ingredientes, modo de preparo, fontes culinárias e créditos de imagem."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Caderno de Receitas | Receitas brasileiras" />
+    <meta
+      property="og:description"
+      content="Catálogo de receitas brasileiras com ingredientes, modo de preparo, fontes culinárias e créditos de imagem."
+    />
+    <meta property="og:url" content="https://lucasppinheiro.github.io/caderno-de-receitas/" />
+    <meta
+      property="og:image"
+      content="https://lucasppinheiro.github.io/caderno-de-receitas/og-cover.png"
+    />
+    <link rel="canonical" href="https://lucasppinheiro.github.io/caderno-de-receitas/" />
+    <link rel="icon" href="/caderno-de-receitas/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/caderno-de-receitas/apple-touch-icon.png" />
+    <title>Caderno de Receitas | Receitas brasileiras</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
